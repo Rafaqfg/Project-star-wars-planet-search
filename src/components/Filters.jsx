@@ -30,6 +30,12 @@ function Filters() {
           type="number"
         />
       </label>
+      <button
+        type="button"
+        data-testid="button-filter"
+      >
+        Filter
+      </button>
     </form>
   );
 }
