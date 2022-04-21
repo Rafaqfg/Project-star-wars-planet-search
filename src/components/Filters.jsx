@@ -44,6 +44,14 @@ function Filters() {
     return updateFilter;
   };
 
+  const usedFilters = () => {
+    let usedColumns = columns;
+    filterByNumericValues.forEach((element) => {
+      usedColumns = usedColumns.filter((usedColumn) => usedColumn !== element.column);
+    });
+    return usedColumns;
+  };
+
   return (
     <div>
       <form>
@@ -54,7 +62,8 @@ function Filters() {
             value={ column }
             onChange={ (event) => handleChange(event, setColumn) }
           >
-            {columns.map((columnMap) => <option key={ columnMap }>{ columnMap }</option>)}
+            {usedFilters()
+              .map((columnMap) => <option key={ columnMap }>{ columnMap }</option>)}
           </select>
         </label>
         <label htmlFor="comparison-filter">
