@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import StarWarsContext from '../context/starWarsContext';
 import Table from './Table';
+import FiltersList from './FiltersList';
 
 function Filters() {
   const columns = ['population', 'orbital_period',
@@ -93,6 +94,7 @@ function Filters() {
           Filter
         </button>
       </form>
+      <FiltersList />
       <Table applyingFilters={ applyingFilters } />
     </div>
   );
