@@ -1,13 +1,14 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import StarWarsContext from '../context/starWarsContext';
 
-function Table() {
+function Table(props) {
   const columns = ['Name', 'Rotation Period',
     'Orbital Period', 'Diameter', 'Climate', 'Gravity',
     'Terrain', 'Surface Water', 'Population', 'Films', 'Created', 'Edited', 'URL'];
 
   const { data, loading, nameFilter } = useContext(StarWarsContext);
-
+  const { applyingFilters } = props;
   return (
     <div>
       { loading ? (
@@ -21,7 +22,8 @@ function Table() {
           </thead>
           <tbody>
             { data
-            && data.filter((item) => item.name.toLowerCase().includes(nameFilter))
+            && applyingFilters()
+              .filter((item) => item.name.toLowerCase().includes(nameFilter))
               .map((planet) => (
                 <tr key={ planet.name } id={ planet.name }>
                   <td>{ planet.name }</td>
@@ -46,5 +48,9 @@ function Table() {
     </div>
   );
 }
+
+Table.propTypes = {
+  applyingFilters: PropTypes.func.isRequired,
+};
 
 export default Table;

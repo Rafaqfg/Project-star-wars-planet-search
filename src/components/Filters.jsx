@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import StarWarsContext from '../context/starWarsContext';
+import Table from './Table';
 
 function Filters() {
   const columns = ['population', 'orbital_period',
@@ -8,7 +9,7 @@ function Filters() {
 
   const { filterByNumericValues, setFilterByNumericValues,
     column, setColumn, operator, setOperator,
-    value, setValue } = useContext(StarWarsContext);
+    value, setValue, data } = useContext(StarWarsContext);
 
   const handleChange = ({ target }, callback) => {
     callback(target.value);
@@ -24,45 +25,67 @@ function Filters() {
     setFilterByNumericValues(updateFilters);
   };
 
+  const applyingFilters = () => {
+    let updateFilter = data;
+    filterByNumericValues.forEach((filter) => {
+      updateFilter = updateFilter.filter((element) => {
+        if (filter.operator === 'maior que') {
+          return Number(element[filter.column]) > Number(filter.value);
+        }
+        if (filter.operator === 'menor que') {
+          return Number(element[filter.column]) < Number(filter.value);
+        }
+        if (filter.operator === 'igual a') {
+          return Number(element[filter.column]) === Number(filter.value);
+        }
+        return updateFilter;
+      });
+    });
+    return updateFilter;
+  };
+
   return (
-    <form>
-      <label htmlFor="column-filter">
-        Column
-        <select
-          data-testid="column-filter"
-          value={ column }
-          onChange={ (event) => handleChange(event, setColumn) }
+    <div>
+      <form>
+        <label htmlFor="column-filter">
+          Column
+          <select
+            data-testid="column-filter"
+            value={ column }
+            onChange={ (event) => handleChange(event, setColumn) }
+          >
+            {columns.map((columnMap) => <option key={ columnMap }>{ columnMap }</option>)}
+          </select>
+        </label>
+        <label htmlFor="comparison-filter">
+          Operator
+          <select
+            data-testid="comparison-filter"
+            value={ operator }
+            onChange={ (event) => handleChange(event, setOperator) }
+          >
+            {operators
+              .map((operatorMap) => <option key={ operatorMap }>{ operatorMap }</option>)}
+          </select>
+        </label>
+        <label htmlFor="value-filter">
+          <input
+            data-testid="value-filter"
+            type="number"
+            value={ value }
+            onChange={ (event) => handleChange(event, setValue) }
+          />
+        </label>
+        <button
+          type="button"
+          data-testid="button-filter"
+          onClick={ concatenateFilters }
         >
-          {columns.map((columnMap) => <option key={ columnMap }>{ columnMap }</option>)}
-        </select>
-      </label>
-      <label htmlFor="comparison-filter">
-        Operator
-        <select
-          data-testid="comparison-filter"
-          value={ operator }
-          onChange={ (event) => handleChange(event, setOperator) }
-        >
-          {operators
-            .map((operatorMap) => <option key={ operatorMap }>{ operatorMap }</option>)}
-        </select>
-      </label>
-      <label htmlFor="value-filter">
-        <input
-          data-testid="value-filter"
-          type="number"
-          value={ value }
-          onChange={ (event) => handleChange(event, setValue) }
-        />
-      </label>
-      <button
-        type="button"
-        data-testid="button-filter"
-        onClick={ concatenateFilters }
-      >
-        Filter
-      </button>
-    </form>
+          Filter
+        </button>
+      </form>
+      <Table applyingFilters={ applyingFilters } />
+    </div>
   );
 }
 
