@@ -14,6 +14,16 @@ function Filters() {
     callback(target.value);
   };
 
+  const concatenateFilters = () => {
+    const addFilter = {
+      column,
+      operator,
+      value,
+    };
+    const updateFilters = [...filterByNumericValues, addFilter];
+    setFilterByNumericValues(updateFilters);
+  };
+
   return (
     <form>
       <label htmlFor="column-filter">
@@ -48,6 +58,7 @@ function Filters() {
       <button
         type="button"
         data-testid="button-filter"
+        onClick={ concatenateFilters }
       >
         Filter
       </button>

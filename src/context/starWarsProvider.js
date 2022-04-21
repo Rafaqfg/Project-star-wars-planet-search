@@ -9,8 +9,8 @@ function StarWarsProvider({ children }) {
   const [loading, setLoading] = useState(false);
   const [nameFilter, setNameFilter] = useState('');
   const [filterByNumericValues, setFilterByNumericValues] = useState([]);
-  const [column, setColumn] = useState('select filter');
-  const [operator, setOperator] = useState('select operator');
+  const [column, setColumn] = useState('population');
+  const [operator, setOperator] = useState('maior que');
   const [value, setValue] = useState(0);
 
   // componentDidMount
