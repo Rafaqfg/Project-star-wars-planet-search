@@ -93,6 +93,13 @@ function Filters() {
         >
           Filter
         </button>
+        <button
+          type="button"
+          data-testid="button-remove-filters"
+          onClick={ () => setFilterByNumericValues([]) }
+        >
+          Clear
+        </button>
       </form>
       <FiltersList />
       <Table applyingFilters={ applyingFilters } />

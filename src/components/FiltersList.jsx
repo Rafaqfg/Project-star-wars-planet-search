@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import StarWarsContext from '../context/starWarsContext';
 
 function FiltersList() {
@@ -17,7 +17,6 @@ function FiltersList() {
             <spam>{`${filter.value} `}</spam>
             <button
               type="button"
-              data-testid="button-remove-filters"
             >
               x
             </button>
