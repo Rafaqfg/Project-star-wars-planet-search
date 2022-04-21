@@ -17,7 +17,7 @@ function Header() {
           data-testid="name-filter"
           id="name-filter"
           value={ nameFilter }
-          onChange={ (e) => filterPlanets(e) }
+          onChange={ (event) => filterPlanets(event) }
         />
       </label>
     </form>

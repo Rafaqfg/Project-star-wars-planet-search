@@ -6,28 +6,43 @@ function Filters() {
     'diameter', 'rotation_period', 'surface_water'];
   const operators = ['maior que', 'menor que', 'igual a'];
 
+  const { filterByNumericValues, setFilterByNumericValues,
+    column, setColumn, operator, setOperator,
+    value, setValue } = useContext(StarWarsContext);
+
+  const handleChange = ({ target }, callback) => {
+    callback(target.value);
+  };
+
   return (
     <form>
       <label htmlFor="column-filter">
         Column
         <select
           data-testid="column-filter"
+          value={ column }
+          onChange={ (event) => handleChange(event, setColumn) }
         >
-          {columns.map((column) => <option key={ column }>{ column }</option>)}
+          {columns.map((columnMap) => <option key={ columnMap }>{ columnMap }</option>)}
         </select>
       </label>
       <label htmlFor="comparison-filter">
         Operator
         <select
           data-testid="comparison-filter"
+          value={ operator }
+          onChange={ (event) => handleChange(event, setOperator) }
         >
-          {operators.map((operator) => <option key={ operator }>{ operator }</option>)}
+          {operators
+            .map((operatorMap) => <option key={ operatorMap }>{ operatorMap }</option>)}
         </select>
       </label>
       <label htmlFor="value-filter">
         <input
           data-testid="value-filter"
           type="number"
+          value={ value }
+          onChange={ (event) => handleChange(event, setValue) }
         />
       </label>
       <button
