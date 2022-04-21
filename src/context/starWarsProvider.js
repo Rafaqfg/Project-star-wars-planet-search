@@ -7,6 +7,7 @@ const URL = 'https://swapi-trybe.herokuapp.com/api/planets/';
 function StarWarsProvider({ children }) {
   const [data, setPlanets] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [nameFilter, setNameFilter] = useState('');
 
   // componentDidMount
   useEffect(() => {
@@ -23,6 +24,8 @@ function StarWarsProvider({ children }) {
   const contextValue = {
     data,
     loading,
+    nameFilter,
+    setNameFilter,
   };
 
   return (

@@ -6,7 +6,7 @@ function Table() {
     'Orbital Period', 'Diameter', 'Climate', 'Gravity',
     'Terrain', 'Surface Water', 'Population', 'Films', 'Created', 'Edited', 'URL'];
 
-  const { data, loading } = useContext(StarWarsContext);
+  const { data, loading, nameFilter } = useContext(StarWarsContext);
 
   return (
     <div>
@@ -20,8 +20,9 @@ function Table() {
             </tr>
           </thead>
           <tbody>
-            {
-              data.map((planet) => (
+            { data
+            && data.filter((item) => item.name.toLowerCase().includes(nameFilter))
+              .map((planet) => (
                 <tr key={ planet.name } id={ planet.name }>
                   <td>{ planet.name }</td>
                   <td>{ planet.rotation_period }</td>
@@ -38,8 +39,7 @@ function Table() {
                   <td>{ planet.edited }</td>
                   <td>{ planet.url }</td>
                 </tr>
-              ))
-            }
+              ))}
           </tbody>
         </table>
       )}
