@@ -5,7 +5,7 @@ import StarWarsContext from './starWarsContext';
 const URL = 'https://swapi-trybe.herokuapp.com/api/planets/';
 
 function StarWarsProvider({ children }) {
-  const [planets, setPlanets] = useState([]);
+  const [data, setPlanets] = useState([]);
   const [loading, setLoading] = useState(false);
 
   // componentDidMount
@@ -21,7 +21,7 @@ function StarWarsProvider({ children }) {
   }, []);
 
   const contextValue = {
-    planets,
+    data,
     loading,
   };
 
@@ -30,7 +30,6 @@ function StarWarsProvider({ children }) {
       <StarWarsContext.Provider value={ contextValue }>
         {children}
       </StarWarsContext.Provider>
-      {console.log(planets)}
     </section>
   );
 }
